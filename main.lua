@@ -16,6 +16,8 @@ createEnemyTimer = createEnemyTimerMax
 enemyImg = nil
 enemies = {}
 
+gunSound = nil
+
 function isColliding(x1, y1, w1, h1, x2, y2, w2, h2)
     return x1 < x2 + w2 and
         x2 < x1 + w1 and
@@ -28,6 +30,7 @@ function love.load(arg)
     player.img = love.graphics.newImage('assets/player.png')
     bulletImg = love.graphics.newImage('assets/bullet.png')
     enemyImg = love.graphics.newImage('assets/enemy.png')
+    gunSound = love.audio.newSource('assets/gun-sound.wav', 'static')
 end
 
 
@@ -47,6 +50,7 @@ function handleEvents(delta)
     end
 
     if love.keyboard.isDown('space', 'rctrl', 'lctrl') and canShoot then
+        gunSound:play()
         newBullet = {
             x = player.x + (player.img:getWidth() / 2),
             y = player.y,
