@@ -33,12 +33,7 @@ function love.load(arg)
     gunSound = love.audio.newSource('assets/gun-sound.wav', 'static')
 end
 
-
-function handleEvents(delta)
-    if love.keyboard.isDown('escape') then
-        love.event.push('quit')
-    end
-
+function handleNavigation(delta)
     if love.keyboard.isDown('left', 'a') then
         if player.x > 0 then
             player.x = player.x - (player.speed * delta)
@@ -56,7 +51,10 @@ function handleEvents(delta)
             player.y = player.y + (player.speed * delta)
         end
     end
+end
 
+
+function handleShooting(delta)
     if love.keyboard.isDown('space', 'rctrl', 'lctrl') and canShoot then
         gunSound:play()
         newBullet = {
@@ -68,6 +66,15 @@ function handleEvents(delta)
         canShoot = false
         canShootTimer = canShootTimerMax
     end
+end
+
+function handleEvents(delta)
+    if love.keyboard.isDown('escape') then
+        love.event.push('quit')
+    end
+
+    handleNavigation(delta)
+    handleShooting(delta)
 
     if love.keyboard.isDown('r') and not isAlive then
         resetGame(delta)
