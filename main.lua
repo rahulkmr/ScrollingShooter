@@ -178,6 +178,8 @@ function love.draw(delta)
             love.graphics.getHeight() / 2 - 10)
     end
 
+    love.graphics.print("Score: " .. score, love.graphics.getWidth() / 2 - 30, 10)
+
     for idx, bullet in ipairs(bullets) do
         love.graphics.draw(bullet.img, bullet.x, bullet.y)
     end
